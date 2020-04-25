@@ -1,3 +1,5 @@
+This is a fork of Sauvignon that makes it compatible with 1.4 without the bugs in other unofficial patches.
+
 **Sauvignon in Stardew** is a [Stardew Valley](http://stardewvalley.net/) mod which lets you build
 a beautiful winery via Robin. Takes 4 days to construct. Once built, all kegs and casks work 30%
 faster inside the building and show time remaining on mouse over.
