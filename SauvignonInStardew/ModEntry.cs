@@ -16,6 +16,7 @@ using StardewValley.Locations;
 using StardewValley.Menus;
 using StardewValley.Objects;
 using xTile;
+using xTile.Layers;
 using xTile.Tiles;
 using SObject = StardewValley.Object;
 
