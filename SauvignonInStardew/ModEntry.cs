@@ -532,7 +532,7 @@ namespace SauvignonInStardew
                 {
                     int skill = this.Helper.Reflection.GetField<int>(lvlMenu, "currentSkill").GetValue();
                     int level = this.Helper.Reflection.GetField<int>(lvlMenu, "currentLevel").GetValue();
-                    if (skill == 0 && level == 0)
+                    if (skill == 0 && level == 10)
                     {
                         Game1.activeClickableMenu = new DistillerMenu(this.DistillerIcon, this.Helper.Input);
                     }
