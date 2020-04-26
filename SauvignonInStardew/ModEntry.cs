@@ -532,9 +532,24 @@ namespace SauvignonInStardew
                 {
                     int skill = this.Helper.Reflection.GetField<int>(lvlMenu, "currentSkill").GetValue();
                     int level = this.Helper.Reflection.GetField<int>(lvlMenu, "currentLevel").GetValue();
-                    if (skill == 0 && level == 10)
+
+                    if (skill == 0 && level == 10
+                        && Game1.player.professions.Contains(1))        // Tiller
                     {
-                        Game1.activeClickableMenu = new DistillerMenu(this.DistillerIcon, this.Helper.Input);
+                        if (Game1.player.professions.Contains(4)        // Artisan
+                            || Game1.player.professions.Contains(5)     // Agriculturist
+                            || Game1.player.professions.Contains(77))   // Distiller
+                        {
+                            // Prevent menu from opening if they already have a level 10 perk
+                            lvlMenu.isActive = false;
+                            lvlMenu.informationUp = false;
+                            lvlMenu.isProfessionChooser = false;
+                            lvlMenu.exitThisMenu();
+                        }
+                        else
+                        {
+                            Game1.activeClickableMenu = new DistillerMenu(this.DistillerIcon, this.Helper.Input);
+                        }
                     }
                 }
             }
