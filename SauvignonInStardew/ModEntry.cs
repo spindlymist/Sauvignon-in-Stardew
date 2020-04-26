@@ -22,17 +22,13 @@ using SObject = StardewValley.Object;
 
 namespace SauvignonInStardew
 {
-    internal class ModEntry : Mod, IAssetLoader
+    internal class ModEntry : Mod
     {
         /*********
         ** Fields
         *********/
         private ModConfig Config;
         private SaveData SaveData;
-
-        private Texture2D WineryOutdoorTexture;
-        private Map WineryIndoorMap;
-        private Map KegRoomMap;
 
         private const int TileID = 131;
 
@@ -61,12 +57,6 @@ namespace SauvignonInStardew
         public override void Entry(IModHelper helper)
         {
             this.Config = helper.ReadConfig<ModConfig>();
-
-            //Loaded Textures for outside and indside the Winery
-            this.WineryOutdoorTexture = helper.Content.Load<Texture2D>($"assets/Winery_outside_{Game1.currentSeason}.png");
-            this.WineryIndoorMap = helper.Content.Load<Map>("assets/Winery.tbin");
-
-            this.KegRoomMap = helper.Content.Load<Map>("assets/Winery2.tbin");
 
             //Loaded texture for Distiller Icon
             this.DistillerIcon = helper.Content.Load<Texture2D>("assets/Distiller_icon.png");
@@ -124,32 +114,6 @@ namespace SauvignonInStardew
                 HarmonyMethod patchMethod3 = new HarmonyMethod(typeof(ModEntry).GetMethod(nameof(Patch_getCategoryName)));
                 harmony.Patch(method3, patchMethod3, null);
             }
-        }
-
-        /// <summary>Get whether this instance can load the initial version of the given asset.</summary>
-        /// <param name="asset">Basic metadata about the asset being loaded.</param>
-        public bool CanLoad<T>(IAssetInfo asset)
-        {
-            return
-                asset.AssetNameEquals("Buildings\\Winery")
-                || asset.AssetNameEquals("Buildings\\Winery2")
-                || asset.AssetNameEquals("Maps/Winery");
-        }
-
-        /// <summary>Load a matched asset.</summary>
-        /// <param name="asset">Basic metadata about the asset being loaded.</param>
-        public T Load<T>(IAssetInfo asset)
-        {
-            if (asset.AssetNameEquals("Buildings\\Winery") || asset.AssetNameEquals("Buildings\\Winery2"))
-                return (T)(object)this.WineryOutdoorTexture;
-
-            if (asset.AssetNameEquals("Maps/Winery"))
-                return (T)(object)this.WineryIndoorMap;
-
-            if (asset.AssetNameEquals("Maps/Winery2"))
-                return (T)(object)this.KegRoomMap;
-
-            return (T)(object)null;
         }
 
 
@@ -564,26 +528,12 @@ namespace SauvignonInStardew
                 }
                 if (!this.IsMagical(e.NewMenu) && !this.HasBluePrint(e.NewMenu, "Winery"))
                 {
-                    BluePrint wineryBluePrint = new BluePrint("Slime Hutch")
-                    {
-                        name = "Winery",
-                        displayName = "Winery",
-                        description = "Kegs and Casks inside work 30% faster and display time remaining.",
-                        daysToConstruct = 4,//4
-                        moneyRequired = 40000 //40000
-                    };
-                    wineryBluePrint.itemsRequired.Clear();
-                    wineryBluePrint.itemsRequired.Add(709, 200);//200
-                    wineryBluePrint.itemsRequired.Add(330, 100);//100
-                    wineryBluePrint.itemsRequired.Add(390, 100);//100
-
-                    this.SetBluePrintField(wineryBluePrint, "textureName", "Buildings\\Winery");
-                    this.SetBluePrintField(wineryBluePrint, "texture", Game1.content.Load<Texture2D>(wineryBluePrint.textureName));
+                    BluePrint wineryBluePrint = new BluePrint("Winery");
 
                     this.GetBluePrints(e.NewMenu).Add(wineryBluePrint);
                 }
 
-                if (Game1.getFarm().isBuildingConstructed("Winery") && !this.IsMagical(e.NewMenu) && !this.HasBluePrint(e.NewMenu, "Winery2"))
+                /*if (Game1.getFarm().isBuildingConstructed("Winery") && !this.IsMagical(e.NewMenu) && !this.HasBluePrint(e.NewMenu, "Winery2"))
                 {
                     BluePrint kegRoomBluePrint = new BluePrint("Slime Hutch")
                     {
@@ -602,7 +552,7 @@ namespace SauvignonInStardew
 
                     this.SetBluePrintField(kegRoomBluePrint, "textureName", "Buildings\\Winery2");
                     this.SetBluePrintField(kegRoomBluePrint, "texture", Game1.content.Load<Texture2D>(kegRoomBluePrint.textureName));
-                }
+                }*/
             }
         }
 
@@ -940,11 +890,7 @@ namespace SauvignonInStardew
                 //monitor.Log($"Current season is " + CurrentSeason);
                 this.CurrentSeason = Game1.currentSeason;
                 //monitor.Log($"Current season is now " + CurrentSeason);
-                this.WineryOutdoorTexture = this.Helper.Content.Load<Texture2D>($"assets/Winery_outside_{Game1.currentSeason}.png");
-                this.Helper.Content.InvalidateCache("Buildings/Winery");
             }
-
-            this.Helper.Content.InvalidateCache("Maps/Winery");
 
             //reduce time for casks
             foreach (Building b in Game1.getFarm().buildings)

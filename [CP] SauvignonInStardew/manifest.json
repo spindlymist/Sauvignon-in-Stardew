@@ -1,0 +1,12 @@
+{
+    "Name": "[CP] Sauvignon in Stardew",
+    "Author": "Jesse",
+    "Version": "2.0.0",
+    "Description": "Content for Sauvignon in Stardew.",
+    "UniqueID": "Jesse.SauvignonInStardew.CP",
+    "MinimumApiVersion": "2.9.3",
+    "UpdateKeys": [],
+    "ContentPackFor": {
+      "UniqueID": "Pathoschild.ContentPatcher", // the ID of required mod
+    }
+}

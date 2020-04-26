@@ -1,0 +1,22 @@
+{
+    "Format": "1.11.0",
+    "Changes": [
+        {
+            "Action": "Load",
+            "Target": "Buildings/Winery",
+            "FromFile": "assets/{{season}}_winery_outside.png",
+        },
+        {
+            "Action": "Load",
+            "Target": "Maps/Winery",
+            "FromFile": "assets/Winery.tbin"
+        },
+        {
+            "Action": "EditData",
+            "Target": "Data/Blueprints",
+            "Entries": {
+                "Winery": "390 100 330 100 709 200/11/6/5/5/-1/-1/Winery/Winery/Kegs and Casks inside work 30% faster and display time remaining./Buildings/none/96/96/20/null/Farm/40000/false/4"
+            }
+        }
+    ]
+ }
