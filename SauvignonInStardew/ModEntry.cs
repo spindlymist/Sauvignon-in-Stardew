@@ -964,7 +964,7 @@ namespace SauvignonInStardew
 
         private void SetBonusPrice()
         {
-            foreach (Item item in Game1.getFarm().shippingBin)
+            foreach (Item item in Game1.getFarm().getShippingBin(Game1.player))
             {
                 if (this.IsDistiller() && item != null && item is SObject booze && this.IsAlcohol(item) && booze.getHealth() != booze.Price)
                 {
