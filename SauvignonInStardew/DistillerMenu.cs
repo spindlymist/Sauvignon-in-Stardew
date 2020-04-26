@@ -53,8 +53,12 @@ namespace SauvignonInStardew
             this.width = 1344;
 
             Game1.player.completelyStopAnimatingOrDoingAction();
-            this.xPositionOnScreen = 100;
-            this.yPositionOnScreen = (int)(Game1.viewport.Height * (1.0 / Game1.options.zoomLevel)) / 4;
+
+            double unscaledXPos = (Game1.viewport.Width - this.width) / 2.0;
+            double unscaledYPos = (Game1.viewport.Height - this.height) / 2.0;
+
+            this.xPositionOnScreen = (int) (unscaledXPos * (1.0 / Game1.options.zoomLevel));
+            this.yPositionOnScreen = (int) (unscaledYPos * (1.0 / Game1.options.zoomLevel));
 
             //this.populateClickableComponentList();
             this.allClickableComponents = new List<ClickableComponent>
