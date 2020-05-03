@@ -1054,7 +1054,7 @@ namespace SauvignonInStardew
             if (Game1.hasLoadedGame)
             {
                 //monitor.Log($"" + Game1.currentLocation.Name);
-                if (Game1.currentLocation.mapPath.Value == "Maps\\Winery" && Game1.currentLocation != null)
+                if (Game1.currentLocation != null && Game1.currentLocation.mapPath.Value == "Maps\\Winery")
                 {
                     ICursorPosition cursorPos = this.Helper.Input.GetCursorPosition();
                     foreach (var entry in Game1.currentLocation.objects)
